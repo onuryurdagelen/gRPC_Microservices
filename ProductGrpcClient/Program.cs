@@ -1,6 +1,8 @@
 ﻿using System;
 using Grpc.Core;
 using Grpc.Net.Client;
+using gRPC_Helper;
+using gRPC_Helper.Extensions;
 using ProductGrpc.Models;
 using ProductGrpc.Protos;
 
@@ -14,7 +16,7 @@ var client = new ProductProtoService.ProductProtoServiceClient(channel);
 //await GetAllProductsAsync(client);
 //await AddProductAsync(client);
 //await DeleteProductAsync(client);
-await UpdateProduct(client);
+//await UpdateProduct(client);
 
 #region GetProductAsync
 async static Task GetProductAsync(ProductProtoService.ProductProtoServiceClient client)

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\gRPC_Helper\gRPC_Helper.csproj" />
     <ProjectReference Include="..\ProductGrpc\ProductGrpc.csproj" />
   </ItemGroup>
 
