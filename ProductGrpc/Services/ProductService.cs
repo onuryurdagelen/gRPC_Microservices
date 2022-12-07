@@ -1,23 +1,32 @@
 ﻿using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using gRPC_Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using ProductGrpc.Data;
 using ProductGrpc.Models;
 using ProductGrpc.Protos;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace ProductGrpc.Services
 {
     public class ProductService:ProductProtoService.ProductProtoServiceBase
     {
         private readonly NorthwindDbContext _context;
+        private readonly SqlHelper _sqlHelper;
         private readonly ILogger<ProductService> _logger;
         private readonly IMapper _mapper;
 
-        public ProductService(ILogger<ProductService> logger, NorthwindDbContext context, IMapper mapper)
+        public ProductService(ILogger<ProductService> logger, 
+            NorthwindDbContext context, 
+            IMapper mapper,
+            SqlHelper sqlHelper
+            )
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _sqlHelper = sqlHelper ?? throw new Exception(nameof(sqlHelper));
             _context = context ?? throw new ArgumentNullException(nameof(_context));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper)); ;
         }
@@ -31,7 +40,13 @@ namespace ProductGrpc.Services
         public override async Task<ProductModel> GetProduct(GetProductRequest request, 
             ServerCallContext context)
         {
-            Product product = await _context.Products.FindAsync(request.ProductId);
+            //SqlHelper.SqlBaglantisiniGetir();
+            //SqlDataReader reader = _sqlHelper.ExecuteQueryWithParameters(SqlHelper.Baglanti, "SELECT * FROM Products WHERE productId=@productId", CommandType.Text, new Dictionary<string, object>()
+            //{
+            //    {"productId",request.ProductId }
+            //});
+
+             Product product = await _context.Products.FindAsync(request.ProductId);
             if(product == null)
             {
                 //throw an rpc exception

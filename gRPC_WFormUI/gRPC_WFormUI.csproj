@@ -7,9 +7,26 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" Version="3.21.10" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.50.0" />
+		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.50.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.50.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\gRPC_Helper\gRPC_Helper.csproj" />
+    <ProjectReference Include="..\ProductGrpc\ProductGrpc.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="..\ProductGrpc\Protos\product.proto" GrpcServices="Client">
+      <Link>Protos\product.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Protos\" />
   </ItemGroup>
 
 </Project>

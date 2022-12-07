@@ -124,6 +124,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\gRPC_Helper\gRPC_Helper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Protobuf Include="Protos\product.proto" GrpcServices="Server" />
   </ItemGroup>
 

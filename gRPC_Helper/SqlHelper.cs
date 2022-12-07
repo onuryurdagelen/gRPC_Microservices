@@ -46,6 +46,65 @@ namespace gRPC_Helper
         }
         #endregion
 
+        #region SetTxtFile
+        public static void SetTxtFile()
+        {
+            string txtFilePath = DirectoryExtension.GetTxtFilePath();
+
+
+            if (txtFilePath != null)
+            {
+                string txtFile = Path.GetFileName(txtFilePath);
+
+                if (!File.Exists(txtFile))
+                {
+                    // Create a new file     
+                    using (StreamWriter sw = File.CreateText(txtFile))
+                    {
+                        sw.WriteLine("[Server]=DESKTOP-GDLA328");
+                        sw.WriteLine("[Database]=Northwind");
+                        sw.WriteLine("[User_Id]= sa");
+                        sw.WriteLine("[Password]=eta");
+
+                        sw.Close();
+                    }
+                }
+                else
+                {
+                    GetAllFields(txtFile);
+                }
+            }
+        }
+        #endregion
+
+        #region GetAllFields
+        private static void GetAllFields(string txtFile)
+        {
+            using (StreamReader file = new StreamReader(txtFile))
+            {
+                int counter = 0;
+                string line;
+
+                List<string> values = new List<string>();
+
+                while ((line = file.ReadLine()) != null)
+                {
+                    //MessageBox.Show(ln);
+                    string value = line.Split("=")[1];
+                    values.Add(value);
+                    counter++;
+                }
+                file.Close();
+
+                server = values.ToArray()[0];
+                database = values.ToArray()[1];
+                userId = values.ToArray()[2];
+                password = values.ToArray()[3];
+            }
+        }
+        #endregion
+
+
         #region SqlBaglantisiniGetir
         public static SqlConnection SqlBaglantisiniGetir()
         {

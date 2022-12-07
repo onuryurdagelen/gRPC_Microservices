@@ -1,3 +1,4 @@
+using gRPC_Helper;
 using Microsoft.EntityFrameworkCore;
 using ProductGrpc.Data;
 using ProductGrpc.Mapper;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
+builder.Services.AddScoped<SqlHelper>();
 builder.Services.AddDbContext<NorthwindDbContext>(options =>
 {
     options.UseSqlServer("Data Source=DESKTOP-GDLA328;Initial Catalog=Northwind;User ID=sa;Password=eta;Encrypt=False;MultipleActiveResultSets=True;TrustServerCertificate=False;");

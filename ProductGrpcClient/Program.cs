@@ -35,6 +35,7 @@ async static Task GetProductAsync(ProductProtoService.ProductProtoServiceClient 
     Console.WriteLine("GetProductAsync ended...");
 }
 #endregion
+
 #region GetAllProductsAsync
 async static Task GetAllProductsAsync(ProductProtoService.ProductProtoServiceClient client)
 {
@@ -65,6 +66,7 @@ async static Task GetAllProductsAsync(ProductProtoService.ProductProtoServiceCli
     Console.WriteLine("GetAllProductsAsync ended...");
 }
 #endregion
+
 #region AddProductAsync
 static async Task AddProductAsync(ProductProtoService.ProductProtoServiceClient client)
 {
