@@ -1,0 +1,4 @@
+[Server]=DESKTOP-GDLA328
+[Database]=Northwind
+[User_Id]= sa
+[Password]=eta

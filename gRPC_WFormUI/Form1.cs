@@ -34,7 +34,7 @@ namespace gRPC_WFormUI
             ayarlar.Show();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             //SqlHelper.ayarlarDosyasiniCalistir();
             SqlHelper.SetTxtFile();
@@ -44,13 +44,16 @@ namespace gRPC_WFormUI
             {
                 ComboBoxDbTable.Items.Add(dbTable);
             });
-            List<Product> Products = ProductService.GetAllProductsAsync().GetAwaiter().GetResult();
+
+            List<Product> Products = await ProductService.GetAllProductsAsync();
             var bindingList = new BindingList<Product>(Products);
             var source = new BindingSource(bindingList, null);
             dbTableGridView.DataSource = source;
+            dbTableGridView.AutoSizeColumnsMode =
+            DataGridViewAutoSizeColumnsMode.Fill;
             //Product tablosunu grid view'da gösterme
             //DataTable dt = SqlHelper.ReturnDbTableWithoutParameters(SqlHelper.Baglanti, "SELECT * FROM Products", CommandType.Text);
-           
+
         }
 
         private void dbTableGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)

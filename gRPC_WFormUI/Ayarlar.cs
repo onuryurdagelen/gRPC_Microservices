@@ -36,9 +36,9 @@ namespace gRPC_WFormUI
                     using (StreamWriter sw = File.CreateText(txtFile))
                     {
                         sw.WriteLine("[Server]=DESKTOP-OKIVNDG");
-                        sw.WriteLine("[Database]=ETA");
-                        sw.WriteLine("[User_Id]= sa");
-                        sw.WriteLine("[Password]=eta");
+                        sw.WriteLine("[Database]=Northwind");
+                        sw.WriteLine("[User_Id]=onur");
+                        sw.WriteLine("[Password]=12345onur");
 
                         sw.Close();
                     }
@@ -61,7 +61,7 @@ namespace gRPC_WFormUI
                 while ((line = file.ReadLine()) != null)
                 {
                     //MessageBox.Show(ln);
-                    string value = line.Split("=")[1];
+                    string value = line.Split("=")[1].Trim();
                     values.Add(value);
                     counter++;
                 }
@@ -89,7 +89,7 @@ namespace gRPC_WFormUI
 
             while (counter < lines.Length)
             {
-                lines[counter] = lines[counter].Replace(lines[counter].Split("=")[1], values.ToArray()[counter]);
+                lines[counter] = lines[counter].Replace(lines[counter].Split("=")[1].Trim(), values.ToArray()[counter].Trim());
                 File.WriteAllLines(filePath, lines);
                 counter++;
             }

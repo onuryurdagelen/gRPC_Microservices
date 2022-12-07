@@ -68,17 +68,20 @@ namespace ProductGrpc.Services
             IServerStreamWriter<ProductModel> responseStream, 
             ServerCallContext context)
         {
-            List<Product> products = await _context.Products.ToListAsync(context.CancellationToken);
-            if(products .Count == 0)
+            List<Product> products = await _context.Products.ToListAsync();
+
+
+            if (products.Count == 0)
             {
                 //throw an rpc exception
             }
 
-            foreach(var product in products) 
+            foreach (var product in products)
             {
                 var productModel = _mapper.Map<ProductModel>(product);
                 await responseStream.WriteAsync(productModel);
             }
+
         }
         #endregion
         #region AddProduct

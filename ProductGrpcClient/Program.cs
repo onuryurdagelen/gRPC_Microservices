@@ -13,7 +13,7 @@ using var channel = GrpcChannel.ForAddress("http://localhost:5181");
 var client = new ProductProtoService.ProductProtoServiceClient(channel);
 
 //await GetProductAsync(client);
-//await GetAllProductsAsync(client);
+await GetAllProductsAsync(client);
 //await AddProductAsync(client);
 //await DeleteProductAsync(client);
 //await UpdateProduct(client);

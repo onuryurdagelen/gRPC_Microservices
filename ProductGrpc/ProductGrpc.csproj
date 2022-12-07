@@ -14,8 +14,6 @@
     <Compile Include="obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
     <Compile Include="obj\Debug\net6.0\ProductGrpc.AssemblyInfo.cs" />
     <Compile Include="obj\Debug\net6.0\ProductGrpc.GlobalUsings.g.cs" />
-    <Compile Include="obj\Debug\net6.0\Protos\Greet.cs" />
-    <Compile Include="obj\Debug\net6.0\Protos\GreetGrpc.cs" />
     <Compile Include="obj\Debug\net6.0\Protos\Product.cs" />
     <Compile Include="obj\Debug\net6.0\Protos\ProductGrpc.cs" />
   </ItemGroup>

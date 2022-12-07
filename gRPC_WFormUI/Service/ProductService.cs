@@ -57,41 +57,19 @@ namespace gRPC_WFormUI.Service
             //GetAllProducts
             Console.WriteLine("GetAllProductsAsync started...");
 
-            //var AllProducts = client.GetAllProducts(new GetAllProductsRequest());
-
-            //while(await AllProducts.ResponseStream.MoveNext(new CancellationTokenSource().Token))
-            //{
-            //    var currentProduct = AllProducts.ResponseStream.Current;
-            //    Console.WriteLine(currentProduct);
-            //    Thread.Sleep(1000);
-            //}
-
-            //Console.WriteLine("GetAllProductsAsync ended...");
-
-
-            //GetAllProducts with c#9.0
-
-            try
+            var clientData = Client.GetAllProducts(new GetAllProductsRequest());
+            await foreach (var responseData in clientData.ResponseStream.ReadAllAsync())
             {
-                var clientData = Client.GetAllProducts(new GetAllProductsRequest());
-                await foreach (var responseData in clientData.ResponseStream.ReadAllAsync())
+                Products.Add(new Product()
                 {
-                    Products.Add(new Product()
-                    {
-                        ProductId = responseData.ProductId,
-                        ProductName = responseData.ProductName,
-                        QuantityPerUnit = responseData.QuantityPerUnit,
-                        UnitPrice = responseData.UnitPrice,
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
+                    ProductId = responseData.ProductId,
+                    ProductName = responseData.ProductName,
+                    QuantityPerUnit = responseData.QuantityPerUnit,
+                    UnitPrice = responseData.UnitPrice,
+                });
             }
 
-            
+
             Console.WriteLine("GetAllProductsAsync ended...");
             return Products;
         }
