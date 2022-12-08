@@ -26,6 +26,7 @@
     </Protobuf>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Products\" />
     <Folder Include="Protos\" />
   </ItemGroup>
 

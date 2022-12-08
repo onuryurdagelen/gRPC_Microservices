@@ -39,7 +39,7 @@ namespace gRPC_WFormUI.Service
             {
                 ProductId = singleProduct.ProductId,
                 ProductName = singleProduct.ProductName,
-                UnitPrice = singleProduct.UnitPrice,
+                UnitPrice = Convert.ToInt32(singleProduct.UnitPrice),
                 QuantityPerUnit = singleProduct.QuantityPerUnit,
             };
           
@@ -65,13 +65,49 @@ namespace gRPC_WFormUI.Service
                     ProductId = responseData.ProductId,
                     ProductName = responseData.ProductName,
                     QuantityPerUnit = responseData.QuantityPerUnit,
-                    UnitPrice = responseData.UnitPrice,
+                    UnitPrice = Convert.ToInt32(responseData.UnitPrice),
                 });
             }
 
 
             Console.WriteLine("GetAllProductsAsync ended...");
             return Products;
+        }
+        #endregion
+
+        #region AddProductAsync
+        public async Task<ProductModel> AddProductAsync(Product product)
+        {
+            var productModel = new ProductModel()
+            {
+                ProductName = product.ProductName,
+                QuantityPerUnit = product.QuantityPerUnit,
+                UnitPrice = (long)product.UnitPrice
+            };
+            var clientData = await Client.AddProductAsync(new AddProductRequest()
+            {
+                Product = productModel
+            });
+            return clientData;
+        }
+        #endregion
+
+        #region UpdateProductAsync
+        public async Task<ProductModel> UpdateProduct(Product product)
+        {
+            var productModel = new ProductModel()
+            {
+                ProductId = product.ProductId,
+                ProductName = product.ProductName,
+                QuantityPerUnit = product.QuantityPerUnit,
+                UnitPrice = Convert.ToInt64(product.UnitPrice)
+            };
+            var clientData = await Client.UpdateProductAsync(new UpdateProductRequest()
+            {
+                Product = productModel
+            });
+
+            return clientData;
         }
         #endregion
     }

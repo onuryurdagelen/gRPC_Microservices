@@ -14,7 +14,7 @@ builder.Services.AddGrpc();
 builder.Services.AddScoped<SqlHelper>();
 builder.Services.AddDbContext<NorthwindDbContext>(options =>
 {
-    options.UseSqlServer("Data Source=DESKTOP-OKIVNDG;Initial Catalog=Northwind;User ID=onur;Password=12345onur;Encrypt=False;MultipleActiveResultSets=True;TrustServerCertificate=False;");
+    options.UseSqlServer("Data Source=DESKTOP-GDLA328;Initial Catalog=Northwind;User ID=sa;Password=eta;Encrypt=False;MultipleActiveResultSets=True;TrustServerCertificate=False;");
 });
 builder.Services.AddAutoMapper(config =>
 {

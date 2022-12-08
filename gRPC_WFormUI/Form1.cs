@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System;
 using System.Data;
+using gRPC_WFormUI.Module.Product;
+using gRPC_WFormUI.Module.Products;
 
 namespace gRPC_WFormUI
 {
@@ -12,6 +14,7 @@ namespace gRPC_WFormUI
     {
         SqlHelper SqlHelper;
         public static Form1 instance;
+        public static List<Product> Products;
         public ProductService ProductService;
         public ComboBox ComboBoxDbTable;
         public DataGridView DataGridViewDbTable;
@@ -45,12 +48,11 @@ namespace gRPC_WFormUI
                 ComboBoxDbTable.Items.Add(dbTable);
             });
 
-            List<Product> Products = await ProductService.GetAllProductsAsync();
+            Products = await ProductService.GetAllProductsAsync();
             var bindingList = new BindingList<Product>(Products);
             var source = new BindingSource(bindingList, null);
             dbTableGridView.DataSource = source;
-            dbTableGridView.AutoSizeColumnsMode =
-            DataGridViewAutoSizeColumnsMode.Fill;
+            dbTableGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //Product tablosunu grid view'da gösterme
             //DataTable dt = SqlHelper.ReturnDbTableWithoutParameters(SqlHelper.Baglanti, "SELECT * FROM Products", CommandType.Text);
 
@@ -59,6 +61,30 @@ namespace gRPC_WFormUI
         private void dbTableGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnAddProduct_Click(object sender, EventArgs e)
+        {
+            ProductAddWForm productAddWForm = new ProductAddWForm();
+            productAddWForm.ShowDialog();
+        }
+
+        private void btnUpdateProduct_Click(object sender, EventArgs e)
+        {
+            ProductUpdateWForm productUpdateWForm = new ProductUpdateWForm();
+            if (DataGridViewDbTable.CurrentRow.Selected)
+            {
+                productUpdateWForm.unitPrice.Text = DataGridViewDbTable.CurrentRow.Cells["UnitPrice"].Value.ToString();
+                productUpdateWForm.productName.Text = DataGridViewDbTable.CurrentRow.Cells["ProductName"].Value.ToString();
+                productUpdateWForm.productQuantityPerUnit.Text = DataGridViewDbTable.CurrentRow.Cells["QuantityPerUnit"].Value.ToString();
+                productUpdateWForm.productId.Text = DataGridViewDbTable.CurrentRow.Cells["ProductId"].Value.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Lütfen bir satýr seçiniz!");
+                return;
+            }
+            productUpdateWForm.ShowDialog();
         }
     }
 }

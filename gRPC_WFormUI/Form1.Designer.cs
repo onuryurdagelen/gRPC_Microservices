@@ -83,6 +83,7 @@
             this.btnAddProduct.TabIndex = 4;
             this.btnAddProduct.Text = "Ürün Ekle";
             this.btnAddProduct.UseVisualStyleBackColor = true;
+            this.btnAddProduct.Click += new System.EventHandler(this.btnAddProduct_Click);
             // 
             // btnUpdateProduct
             // 
@@ -92,6 +93,7 @@
             this.btnUpdateProduct.TabIndex = 5;
             this.btnUpdateProduct.Text = "Ürün Güncelle";
             this.btnUpdateProduct.UseVisualStyleBackColor = true;
+            this.btnUpdateProduct.Click += new System.EventHandler(this.btnUpdateProduct_Click);
             // 
             // btnDeleteProduct
             // 
