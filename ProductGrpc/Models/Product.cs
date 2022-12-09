@@ -10,6 +10,8 @@ namespace ProductGrpc.Models
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string? QuantityPerUnit { get; set; }
-        public decimal UnitPrice { get; set; }
+
+        [Column(TypeName ="money")]
+        public long UnitPrice { get; set; }
     }
 }

@@ -67,6 +67,7 @@
             // 
             // dbTableGridView
             // 
+            this.dbTableGridView.AllowUserToAddRows = false;
             this.dbTableGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dbTableGridView.Location = new System.Drawing.Point(20, 150);
             this.dbTableGridView.Name = "dbTableGridView";
@@ -103,6 +104,7 @@
             this.btnDeleteProduct.TabIndex = 6;
             this.btnDeleteProduct.Text = "Ürün Sil";
             this.btnDeleteProduct.UseVisualStyleBackColor = true;
+            this.btnDeleteProduct.Click += new System.EventHandler(this.btnDeleteProduct_Click);
             // 
             // Form1
             // 

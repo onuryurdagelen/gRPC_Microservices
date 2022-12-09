@@ -39,7 +39,7 @@ namespace gRPC_WFormUI.Module.Product
                 ProductId = productModel.ProductId,
                 ProductName = productModel.ProductName,
                 QuantityPerUnit = productModel.QuantityPerUnit,
-                UnitPrice = Convert.ToInt32(productModel.UnitPrice),
+                UnitPrice = Convert.ToInt64(productModel.UnitPrice),
             });
             Form1.instance.DataGridViewDbTable.DataSource = Form1.Products;
         }

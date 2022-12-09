@@ -110,5 +110,14 @@ namespace gRPC_WFormUI.Service
             return clientData;
         }
         #endregion
+
+        #region DeleteProductAsync
+
+        public async Task<DeleteProductResponse> DeleteProductAsync(int productId)
+        {
+            var clientData = await Client.DeleteProductAsync(new DeleteProductRequest() { ProductId = productId });
+            return clientData;
+        }
+        #endregion
     }
 }

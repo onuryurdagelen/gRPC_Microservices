@@ -17,6 +17,8 @@ await GetAllProductsAsync(client);
 //await AddProductAsync(client);
 //await DeleteProductAsync(client);
 //await UpdateProduct(client);
+await InsertBulkProduct(client);
+await GetAllProductsAsync(client);
 
 #region GetProductAsync
 async static Task GetProductAsync(ProductProtoService.ProductProtoServiceClient client)
@@ -127,4 +129,28 @@ async Task UpdateProduct(ProductProtoService.ProductProtoServiceClient client)
     await global::System.Console.Out.WriteLineAsync(responseData.ToString());
     await global::System.Console.Out.WriteLineAsync("UpdateProduct ended...");
 }
+#endregion
+
+#region InsertBulkProduct
+static async Task InsertBulkProduct(ProductProtoService.ProductProtoServiceClient client)
+{
+    //InsertBulkProduct
+    await global::System.Console.Out.WriteLineAsync("InsertBulkProduct started...");
+    using var clientData = client.InsertBulkProduct();
+
+    for (int i = 0; i < 3; i++)
+    {
+        var productModel = new ProductModel()
+        {
+            ProductName = $"Test{i + 1}",
+            QuantityPerUnit = "11122233",
+            UnitPrice = 5455
+        };
+        await clientData.RequestStream.WriteAsync(productModel);
+    }
+    await clientData.RequestStream.CompleteAsync();
+    var response = await clientData.ResponseAsync;
+    await global::System.Console.Out.WriteLineAsync($"Response => {response.ToString()}");
+}
+
 #endregion

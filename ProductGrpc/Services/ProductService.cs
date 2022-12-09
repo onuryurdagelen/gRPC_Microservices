@@ -50,7 +50,9 @@ namespace ProductGrpc.Services
             if(product == null)
             {
                 //throw an rpc exception
-            }
+                throw new RpcException(new Status(StatusCode.NotFound,$"Product with ID={request.ProductId} not found"));
+
+			}
             //var productModel = new ProductModel
             //{
             //    ProductId = product.ProductId,
@@ -73,8 +75,9 @@ namespace ProductGrpc.Services
 
             if (products.Count == 0)
             {
-                //throw an rpc exception
-            }
+				//throw an rpc exception
+				throw new RpcException(new Status(StatusCode.NotFound, $"Products not found"));
+			}
 
             foreach (var product in products)
             {
@@ -107,8 +110,9 @@ namespace ProductGrpc.Services
             var product = await _context.Products.FindAsync(request.ProductId);
             if (product == null)
             {
-                //throw an rpc exception
-            }
+				//throw an rpc exception
+				throw new RpcException(new Status(StatusCode.NotFound, $"Product with ID={request.ProductId} not found"));
+			}
             _context.Products.Remove(product);
             var deletedCount = 0;
             try
@@ -135,8 +139,9 @@ namespace ProductGrpc.Services
             bool isExist = await _context.Products.AnyAsync(p => p.ProductId == product.ProductId);
             if(!isExist)
             {
-                //throw a rpc exception
-            }
+				//throw a rpc exception
+				throw new RpcException(new Status(StatusCode.NotFound, $"Product with ID={product.ProductId} not found"));
+			}
             _context.Entry(product).State = EntityState.Modified;
             try
             {
@@ -149,7 +154,26 @@ namespace ProductGrpc.Services
             return request.Product;
            
         }
-        #endregion
+		#endregion
+		#region InsertBulkProduct
+		public override async Task<InsertBulkProductResponse> InsertBulkProduct(IAsyncStreamReader<ProductModel> requestStream, ServerCallContext context)
+		{
+            while (await requestStream.MoveNext())
+            {
+                var product = _mapper.Map<Product>(requestStream.Current);
+                _context.Products.Add(product);
+            }
+            var insertCount = await _context.SaveChangesAsync();
 
-    }
+            var response = new InsertBulkProductResponse
+            {
+                IsSuccess = insertCount > 0,
+                InsertCount = insertCount,
+            };
+
+            return response;
+		}
+		#endregion
+
+	}
 }

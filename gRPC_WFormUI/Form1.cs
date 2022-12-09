@@ -7,6 +7,8 @@ using System;
 using System.Data;
 using gRPC_WFormUI.Module.Product;
 using gRPC_WFormUI.Module.Products;
+using System.Windows.Forms;
+using ProductGrpc.Protos;
 
 namespace gRPC_WFormUI
 {
@@ -39,6 +41,8 @@ namespace gRPC_WFormUI
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+           
+
             //SqlHelper.ayarlarDosyasiniCalistir();
             SqlHelper.SetTxtFile();
             SqlHelper.SqlBaglantisiniGetir();
@@ -81,10 +85,32 @@ namespace gRPC_WFormUI
             }
             else
             {
-                MessageBox.Show("Lütfen bir satýr seçiniz!");
+                MessageBox.Show("Ürünü güncellemek için lütfen bir satýr seçiniz!");
                 return;
             }
             productUpdateWForm.ShowDialog();
+        }
+
+        private async void btnDeleteProduct_Click(object sender, EventArgs e)
+        {
+            if (DataGridViewDbTable.CurrentRow.Selected)
+            {
+                var response = await ProductService.DeleteProductAsync(Convert.ToInt32(DataGridViewDbTable.CurrentRow.Cells["ProductId"].Value));
+
+                if (response.IsSuccess)
+                {
+                   Products = Products.Where(s => s.ProductId != Convert.ToInt32(DataGridViewDbTable.CurrentRow.Cells["ProductId"].Value)).ToList();
+                    Form1.instance.DataGridViewDbTable.DataSource = Products;
+                    MessageBox.Show("Ürün baþarýyla silinmiþtir");
+                }
+                else
+                    MessageBox.Show("Ürün silme iþlemi baþarýsýz");
+            }
+            else
+            {
+                MessageBox.Show("Ürünü silmek için lütfen bir satýr seçiniz!");
+                return;
+            }
         }
     }
 }

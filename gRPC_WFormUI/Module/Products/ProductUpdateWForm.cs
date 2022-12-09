@@ -48,12 +48,16 @@ namespace gRPC_WFormUI.Module.Products
             });
             for (int i = 0; i < Form1.instance.DataGridViewDbTable.Rows.Count; i++)
             {
-                if(Form1.instance.DataGridViewDbTable.Rows[i].Cells["ProductId"].Value.ToString() == productModel.ProductId.ToString())
+                if(Form1.instance.DataGridViewDbTable.Rows[i].Cells["ProductId"].Value.ToString() == productModel.ProductId.ToString() &&
+                    Form1.instance.DataGridViewDbTable.Rows[i].Cells["ProductId"].Value != null
+                    )
                 {
                     Form1.instance.DataGridViewDbTable.Rows[i].Cells[0].Value = productModel.ProductId;
                     Form1.instance.DataGridViewDbTable.Rows[i].Cells[1].Value = productModel.ProductName;
                     Form1.instance.DataGridViewDbTable.Rows[i].Cells[2].Value = productModel.QuantityPerUnit;
                     Form1.instance.DataGridViewDbTable.Rows[i].Cells[3].Value = productModel.UnitPrice;
+                    MessageBox.Show("Ürün başarıyla güncellenmiştir.");
+                    //break;
                 }
             }
         }

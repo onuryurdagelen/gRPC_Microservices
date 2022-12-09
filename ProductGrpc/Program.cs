@@ -1,6 +1,7 @@
 using gRPC_Helper;
 using Microsoft.EntityFrameworkCore;
 using ProductGrpc.Data;
+using ProductGrpc.Interception;
 using ProductGrpc.Mapper;
 using ProductGrpc.Services;
 
@@ -10,7 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
 
 // Add services to the container.
-builder.Services.AddGrpc();
+builder.Services.AddGrpc(opt =>
+{
+    opt.EnableDetailedErrors = true;
+    opt.Interceptors.Add<GrpcGlobalExceptionHandlerInterceptor>();
+});
+builder.Services.AddLogging(logging =>
+{
+	logging.AddConsole();
+	logging.SetMinimumLevel(LogLevel.Debug);
+});
 builder.Services.AddScoped<SqlHelper>();
 builder.Services.AddDbContext<NorthwindDbContext>(options =>
 {

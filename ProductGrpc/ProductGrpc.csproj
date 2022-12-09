@@ -123,6 +123,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\gRPC_Helper\gRPC_Helper.csproj" />
+    <ProjectReference Include="..\gRPC_Shared\gRPC_Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
